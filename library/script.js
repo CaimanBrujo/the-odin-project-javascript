@@ -43,6 +43,7 @@ function displayBooks() {
     myLibrary.forEach((book, i) => {
         const bookCard = document.createElement("div");
         bookCard.classList.add("book-card");
+        bookCard.dataset.index = i;
 
         bookCard.innerHTML =
         `<div class="card-header">
@@ -50,12 +51,31 @@ function displayBooks() {
             <h3 class="book-title">Book: ${book.title}</h3>
         </div>
         <p class="book-author"><strong>Author:</strong><br>${book.author}</p>
-        <p class="book-pages"><strong>Pages:</strong><br>${book.pages}</p>
+        <p class="book-pages"><strong>Number of Pages:</strong><br>${book.pages}</p>
         <p class="book-read"><strong>Read:</strong><br>${book.read ? "Yes" : "No"}</p>
         <button class="toggle-read-btn" data-index="${i}">
             ${book.read ? "Mark as Unread" : "Mark as Read"}
         </button>`;
 
+        const deleteBtn = bookCard.querySelector(".delete-btn");
+        deleteBtn.addEventListener("click", deleteBook);
+
+        const toggleBtn = bookCard.querySelector(".toggle-read-btn");
+        toggleBtn.addEventListener("click", toggleReadStatus);
+
         libraryDisplay.appendChild(bookCard);
     });
 }
+
+function deleteBook(e) {
+    const index = e.target.dataset.index;
+    myLibrary.splice(index, 1);
+    displayBooks();
+}
+
+function toggleReadStatus(e) {
+    const index = e.target.dataset.index;
+    myLibrary[index].read = !myLibrary[index].read;
+    displayBooks();
+}
+

@@ -141,6 +141,8 @@ main{
 }
 
 footer{
+    display: flex;
+    justify-content: center;
     padding: 1rem;
     max-width: 1000px;
     width: 100%;
