@@ -51,7 +51,8 @@ main{
     display: flex;
     flex-direction: column;
     justify-items: center;
-    gap: 15px;
+    align-items: center;
+    gap: 25px;
 }
 
 .new-book-btn{
@@ -63,6 +64,11 @@ main{
 
 .form-container{
     display: none;
+    width: 300px;
+}
+
+.form-container.show{
+    display: block;
 }
 
 .new-book-form{
