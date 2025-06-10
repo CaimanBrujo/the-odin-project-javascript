@@ -9,11 +9,28 @@ function toggleForm() {
     newBookForm.classList.toggle("show");
 }
 
-function Book() {
-  // the constructor...
+function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
 
 function addBookToLibrary() {
-  // take params, create a book then store it in the array
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+    const read = document.querySelector("#read").checked;
+
+    const newBook = new Book(title, author, pages, read)
+    myLibrary.push(newBook);
+    console.log(myLibrary)
 }
 
+const form = document.querySelector("#new-book-form");
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    addBookToLibrary();
+    form.reset();
+    formContainer.classList.remove("show");
+});
