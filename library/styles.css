@@ -108,6 +108,32 @@ main{
     gap: 0.5rem;
 }
 
+.card-header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--bone-white);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+.toggle-read-btn{
+    padding: 0.4rem;
+    width: 120px;
+    background-color: var(--blue-dark);
+    color: var(--bone-white);
+    border: 1px solid var(--gray-light);
+}
+
 
 .footer-container{
     width: 100%;

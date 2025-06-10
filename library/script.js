@@ -45,11 +45,16 @@ function displayBooks() {
         bookCard.classList.add("book-card");
 
         bookCard.innerHTML =
-        `<h3 class="book-title">${book.title}</h3>
-        <p class="book-author"><strong>Author:</strong> ${book.author}</p>
-        <p class="book-pages"><strong>Pages:</strong> ${book.pages}</p>
-        <p class="book-read"><strong>Read:</strong> ${book.read ? "Yes" : "No"}</p>`;
-
+        `<div class="card-header">
+            <button class="delete-btn" data-index="${i}">✖</button>
+            <h3 class="book-title">Book: ${book.title}</h3>
+        </div>
+        <p class="book-author"><strong>Author:</strong><br>${book.author}</p>
+        <p class="book-pages"><strong>Pages:</strong><br>${book.pages}</p>
+        <p class="book-read"><strong>Read:</strong><br>${book.read ? "Yes" : "No"}</p>
+        <button class="toggle-read-btn" data-index="${i}">
+            ${book.read ? "Mark as Unread" : "Mark as Read"}
+        </button>`;
 
         libraryDisplay.appendChild(bookCard);
     });
