@@ -4,7 +4,6 @@ const newBookForm = document.querySelector("#form-container")
 const form = document.querySelector("#new-book-form");
 const formContainer = document.querySelector("#form-container");
 
-
 newBookbtn.addEventListener("click", toggleForm);
 
 function toggleForm() {
