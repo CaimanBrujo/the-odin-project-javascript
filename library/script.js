@@ -1,6 +1,8 @@
 const myLibrary = [];
 const newBookbtn = document.querySelector("#new-book-btn");
 const newBookForm = document.querySelector("#form-container")
+const form = document.querySelector("#new-book-form");
+const formContainer = document.querySelector("#form-container");
 
 
 newBookbtn.addEventListener("click", toggleForm);
@@ -28,7 +30,6 @@ function addBookToLibrary() {
     displayBooks();
 }
 
-const form = document.querySelector("#new-book-form");
 form.addEventListener("submit", function(e) {
     e.preventDefault();
     addBookToLibrary();

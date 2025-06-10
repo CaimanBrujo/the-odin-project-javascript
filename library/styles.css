@@ -108,13 +108,13 @@ main{
     gap: 0.5rem;
 }
 
-.card-header {
+.card-header{
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
 }
 
-.delete-btn {
+.delete-btn{
     background: transparent;
     border: none;
     color: var(--bone-white);
@@ -122,7 +122,7 @@ main{
     cursor: pointer;
 }
 
-.delete-btn:hover {
+.delete-btn:hover{
     color: red;
 }
 
