@@ -10,11 +10,31 @@
     <div class="main-grid">
         <header>Header</header>
         <div class="main-container">
-            <main>Main</main>
+            <main>
+                <button class="new-book-btn" id="new-book-btn">
+                    New Book
+                </button>
+                <div class="form-container">
+                    <form class="new-book-form" id="new-book-form" action="">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author">
+                        <label for="pages">Title</label>
+                        <input type="text" name="pages" id="pages">
+                        <div class="checkbox-container">
+                            <label for="read">Read</label>
+                            <input type="checkbox" name="title" id="title">
+                        </div>
+                        <input class="submit-btn" type="submit" value="Add Book">
+                    </form>
+                </div>
+            </main>
         </div>
         <div class="footer-container">
             <footer>Footer</footer>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
