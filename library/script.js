@@ -24,7 +24,8 @@ function addBookToLibrary() {
 
     const newBook = new Book(title, author, pages, read)
     myLibrary.push(newBook);
-    console.log(myLibrary)
+    
+    displayBooks();
 }
 
 const form = document.querySelector("#new-book-form");
@@ -34,3 +35,22 @@ form.addEventListener("submit", function(e) {
     form.reset();
     formContainer.classList.remove("show");
 });
+
+function displayBooks() {
+    const libraryDisplay = document.querySelector("#library-display");
+    libraryDisplay.innerHTML = "";
+
+    myLibrary.forEach((book, i) => {
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book-card");
+
+        bookCard.innerHTML =
+        `<h3 class="book-title">${book.title}</h3>
+        <p class="book-author"><strong>Author:</strong> ${book.author}</p>
+        <p class="book-pages"><strong>Pages:</strong> ${book.pages}</p>
+        <p class="book-read"><strong>Read:</strong> ${book.read ? "Yes" : "No"}</p>`;
+
+
+        libraryDisplay.appendChild(bookCard);
+    });
+}
