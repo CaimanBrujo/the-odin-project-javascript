@@ -1,49 +1,49 @@
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --blue-dark: #0f2032;
     --blue-darker: #04172b;
     --gray-light: #afafae;
     --bone-white: #fdfcfb;
 }
 
-html{
+html {
     height: 100%;
 }
 
-body{
+body {
     background-color: var(--blue-dark);
     color: var(--bone-white);
     font-family: system-ui, sans-serif;
     height: 100%;
 }
 
-.main-grid{
+.main-grid {
     display: grid;
     grid-template-rows: auto 1fr auto;
     width: 100%;
     height: 100%;
 }
 
-header{
+header {
     padding: 1rem;
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
 }
 
-.main-container{
+.main-container {
     border-top: 2px solid var(--gray-light);
     border-bottom: 2px solid var(--gray-light);
     width: 100%;
 }
 
-main{
+main {
     padding: 2rem;
     max-width: 1000px;
     width: 100%;
@@ -55,23 +55,23 @@ main{
     gap: 25px;
 }
 
-.new-book-btn{
+.new-book-btn {
     padding: 1rem;
     margin: 0 auto;
     background-color: var(--blue-darker);
     color: var(--bone-white);
 }
 
-.form-container{
+.form-container {
     display: none;
     width: 300px;
 }
 
-.form-container.show{
+.form-container.show {
     display: block;
 }
 
-.new-book-form{
+.new-book-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -81,13 +81,13 @@ main{
     border: 1px solid var(--gray-light)
 }
 
-.submit-btn{
+.submit-btn {
     height: 30px;
     width: 100px;
     margin: 0 auto;
 }
 
-.library-display{
+.library-display {
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
@@ -95,7 +95,7 @@ main{
     justify-content: center;
 }
 
-.book-card{
+.book-card {
     min-width: 280px;
     background-color: var(--blue-darker);
     border: 1px solid var(--gray-light);
@@ -108,13 +108,13 @@ main{
     gap: 0.5rem;
 }
 
-.card-header{
+.card-header {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
 }
 
-.delete-btn{
+.delete-btn {
     background: transparent;
     border: none;
     color: var(--bone-white);
@@ -122,11 +122,11 @@ main{
     cursor: pointer;
 }
 
-.delete-btn:hover{
+.delete-btn:hover {
     color: red;
 }
 
-.toggle-read-btn{
+.toggle-read-btn {
     padding: 0.4rem;
     width: 120px;
     background-color: var(--blue-dark);
@@ -135,12 +135,12 @@ main{
 }
 
 
-.footer-container{
+.footer-container {
     width: 100%;
     background-color: var(--blue-darker);
 }
 
-footer{
+footer {
     display: flex;
     justify-content: center;
     padding: 1rem;

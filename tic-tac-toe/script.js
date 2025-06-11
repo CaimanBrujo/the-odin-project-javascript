@@ -98,3 +98,28 @@ const GameController = (() => {
     return { playRound, resetGame };
 
 })();
+
+
+const DisplayController = (() => {
+    const gameContainer = document.querySelector(".tictactoe-container");
+
+    const render = () => {
+        const board = Gameboard.getBoard();
+        gameContainer.innerHTML = ""; // limpiar antes de volver a renderizar
+
+        board.forEach((cell, index) => {
+        const cellDiv = document.createElement("div");
+        cellDiv.classList.add("cell");
+        cellDiv.textContent = cell;
+        cellDiv.addEventListener("click", () => {
+            GameController.playRound(index);
+            render(); // volver a dibujar el tablero actualizado
+        });
+        gameContainer.appendChild(cellDiv);
+        });
+    };
+
+    render(); // dibuja el tablero al cargar
+
+    return { render };
+})();
