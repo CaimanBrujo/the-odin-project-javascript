@@ -82,7 +82,10 @@ const GameController = (() => {
 
 
     const checkTie = () => {
+        const board = Gameboard.getBoard();
+        return board.every(cell => cell !== "");
     };
+
 
     const resetGame = () => {
     };
