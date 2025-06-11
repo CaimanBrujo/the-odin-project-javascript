@@ -21,105 +21,128 @@ const Player = (name, marker) => {
 };
 
 const GameController = (() => {
+	let player1, player2;
+	let currentPlayer;
+	let gameOver = false;
 
-    const player1 = Player("Nico", "X");
-    const player2 = Player("Ivancho", "O");
-    let currentPlayer = player1;
-    let gameOver = false;
+	const setPlayers = (p1, p2) => {
+		player1 = p1;
+		player2 = p2;
+		currentPlayer = player1;
+		gameOver = false;
+	};
 
-    const switchPlayer = () => {
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
-    };
+	const switchPlayer = () => {
+		currentPlayer = currentPlayer === player1 ? player2 : player1;
+	};
 
-    const playRound = (index) => {
-        if (gameOver) return;
+	const playRound = (index) => {
+		if (gameOver || Gameboard.getBoard()[index] !== "") return;
 
-        const board = Gameboard.getBoard();
+		Gameboard.setCell(index, currentPlayer.marker);
 
-        if (board[index] !== "") return;
+		if (checkWinner()) {
+			return `${currentPlayer.name} wins!`;
+		}
 
-        Gameboard.setCell(index, currentPlayer.marker);
+		if (checkTie()) {
+			return "It's a tie!";
+		}
 
-        if (checkWinner()) {
-            console.log(`${currentPlayer.name} wins!`);
-            gameOver = true;
-            return;
-        }
+		switchPlayer();
+		return `Turn: ${currentPlayer.name}`;
+	};
 
-        if (checkTie()) {
-            console.log("It's a tie!");
-            gameOver = true;
-            return;
-        }
+	const checkWinner = () => {
+		const board = Gameboard.getBoard();
+		const winningCombos = [
+			[0, 1, 2], [3, 4, 5], [6, 7, 8],
+			[0, 3, 6], [1, 4, 7], [2, 5, 8],
+			[0, 4, 8], [2, 4, 6]
+		];
+		return winningCombos.some(([a, b, c]) =>
+			board[a] !== "" && board[a] === board[b] && board[a] === board[c]
+		);
+	};
 
-        switchPlayer();
-    };
+	const checkTie = () => {
+		return Gameboard.getBoard().every(cell => cell !== "");
+	};
 
-    const checkWinner = () => {
-        const board = Gameboard.getBoard();
+	const resetGame = () => {
+		Gameboard.resetBoard();
+		currentPlayer = player1;
+		gameOver = false;
+	};
 
-        const winningCombos = [
-            [0, 1, 2], // row 1
-            [3, 4, 5], // row 2
-            [6, 7, 8], // row 3
-            [0, 3, 6], // col 1
-            [1, 4, 7], // col 2
-            [2, 5, 8], // col 3
-            [0, 4, 8], // diagonal \
-            [2, 4, 6]  // diagonal /
-        ];
+	const getCurrentPlayer = () => currentPlayer;
+	const endGame = () => { gameOver = true; };
 
-        return winningCombos.some(combo => {
-            const [a, b, c] = combo;
-
-            return (
-                board[a] !== "" &&
-                board[a] === board[b] &&
-                board[a] === board[c]
-                );
-        });
-    };
-
-
-    const checkTie = () => {
-        const board = Gameboard.getBoard();
-        return board.every(cell => cell !== "");
-    };
-
-
-    const resetGame = () => {
-        Gameboard.resetBoard();
-        currentPlayer = player1;
-        gameOver = false;
-        console.log("Game has been reset.");
-    };
-
-
-    return { playRound, resetGame };
-
+	return { playRound, resetGame, setPlayers, getCurrentPlayer, endGame };
 })();
-
 
 const DisplayController = (() => {
-    const gameContainer = document.querySelector(".tictactoe-container");
+	const container = document.querySelector(".tictactoe-container");
+	const statusText = document.querySelector("#game-status");
+	const restartBtn = document.querySelector("#restart-game");
+	const startBtn = document.querySelector("#start-game");
+	const input1 = document.querySelector("#player1-name");
+	const input2 = document.querySelector("#player2-name");
 
-    const render = () => {
-        const board = Gameboard.getBoard();
-        gameContainer.innerHTML = ""; // limpiar antes de volver a renderizar
+	const render = () => {
+		container.innerHTML = "";
+		const board = Gameboard.getBoard();
+		board.forEach((cell, index) => {
+			const cellDiv = document.createElement("div");
+			cellDiv.classList.add("cell");
+			cellDiv.textContent = cell;
+			cellDiv.style.userSelect = "none";
+			cellDiv.style.width = "80px";
+			cellDiv.style.height = "80px";
+			cellDiv.style.border = "1px solid white";
+			cellDiv.style.display = "flex";
+			cellDiv.style.alignItems = "center";
+			cellDiv.style.justifyContent = "center";
+			cellDiv.style.fontSize = "2rem";
+			cellDiv.style.cursor = "pointer";
 
-        board.forEach((cell, index) => {
-        const cellDiv = document.createElement("div");
-        cellDiv.classList.add("cell");
-        cellDiv.textContent = cell;
-        cellDiv.addEventListener("click", () => {
-            GameController.playRound(index);
-            render(); // volver a dibujar el tablero actualizado
-        });
-        gameContainer.appendChild(cellDiv);
-        });
-    };
+			cellDiv.addEventListener("click", () => {
+				const result = GameController.playRound(index);
+				render();
 
-    render(); // dibuja el tablero al cargar
+				if (result) {
+					statusText.textContent = result;
+					if (result.includes("wins") || result.includes("tie")) {
+						GameController.endGame();
+					}
+				}
+			});
 
-    return { render };
+			container.appendChild(cellDiv);
+		});
+	};
+
+	startBtn.addEventListener("click", () => {
+		const name1 = input1.value.trim() || "Player 1";
+		const name2 = input2.value.trim() || "Player 2";
+
+		const p1 = Player(name1, "X");
+		const p2 = Player(name2, "O");
+
+		GameController.setPlayers(p1, p2);
+		Gameboard.resetBoard();
+		render();
+		statusText.textContent = `Turn: ${p1.name}`;
+	});
+
+	restartBtn.addEventListener("click", () => {
+		GameController.resetGame();
+		render();
+		statusText.textContent = `Turn: ${GameController.getCurrentPlayer().name}`;
+	});
+
+	render();
 })();
+
+
+
