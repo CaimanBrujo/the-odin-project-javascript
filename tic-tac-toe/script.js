@@ -88,7 +88,12 @@ const GameController = (() => {
 
 
     const resetGame = () => {
+        Gameboard.resetBoard();
+        currentPlayer = player1;
+        gameOver = false;
+        console.log("Game has been reset.");
     };
+
 
     return { playRound, resetGame };
 
