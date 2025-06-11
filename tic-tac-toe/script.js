@@ -20,9 +20,50 @@ const Player = (name, marker) => {
     return { name, marker };
 };
 
-const player1 = Player("Nico", "X");
-const player2 = Player("Ivancho", "O");
+const GameController = (() => {
 
-console.log(Gameboard.getBoard());
-console.log(player1);
-console.log(player2);
+    const player1 = Player("Nico", "X");
+    const player2 = Player("Ivancho", "O");
+    let currentPlayer = player1;
+    let gameOver = false;
+
+    const switchPlayer = () => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    };
+
+    const playRound = (index) => {
+        if (gameOver) return;
+
+        const board = Gameboard.getBoard();
+
+        if (board[index] !== "") return;
+
+        Gameboard.setCell(index, currentPlayer.marker);
+
+        if (checkWinner()) {
+            console.log(`${currentPlayer.name} wins!`);
+            gameOver = true;
+            return;
+        }
+
+        if (checkTie()) {
+            console.log("It's a tie!");
+            gameOver = true;
+            return;
+        }
+
+        switchPlayer();
+        };
+
+    const checkWinner = () => {
+    };
+
+    const checkTie = () => {
+    };
+
+    const resetGame = () => {
+    };
+
+    return { playRound, resetGame };
+    
+})();
