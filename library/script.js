@@ -10,12 +10,19 @@ function toggleForm() {
     newBookForm.classList.toggle("show");
 }
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
 }
+
 
 function addBookToLibrary() {
     const title = document.querySelector("#title").value;
@@ -75,7 +82,7 @@ function deleteBook(e) {
 
 function toggleReadStatus(e) {
     const index = e.target.dataset.index;
-    myLibrary[index].read = !myLibrary[index].read;
+    myLibrary[index].toggleRead();
     displayBooks();
 }
 
