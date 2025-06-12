@@ -134,6 +134,10 @@ main {
     border: 1px solid var(--gray-light);
 }
 
+.read-card {
+    border: 2px solid #00ff95;
+    background-color: #1a2b1d;
+}
 
 .footer-container {
     width: 100%;
