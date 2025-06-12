@@ -50,6 +50,9 @@ function displayBooks() {
     myLibrary.forEach((book, i) => {
         const bookCard = document.createElement("div");
         bookCard.classList.add("book-card");
+        
+        if (book.read) bookCard.classList.add("read-card");
+
         bookCard.dataset.index = i;
 
         bookCard.innerHTML =
