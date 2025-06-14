@@ -4,22 +4,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
+        path: path.resolve(__dirname, '../docs/restaurant-page'),
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
-    mode: 'development',
-    devServer: {
-        static: {
-            directory: path.resolve(__dirname, 'dist'),
-        },
-        port: 8080,
-        open: true,
-        hot: true,
-    },
+    mode: 'production',
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/template.html',
+            filename: 'index.html',
         }),
     ],
 };
